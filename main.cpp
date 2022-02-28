@@ -43,19 +43,79 @@ float specular[] = { 1.0, 1.0, 1.0, 1.0 };
 float shininess[] = { 50.0 };
 
 void problem1() {
-    // TODO: Your code here!
+  //10 teapots
+    for(int i=0;i<10;i++){
+      glPushMatrix();
+      //move (x,y) by (cos(radians of 36*i),sin(radians of 36*i))
+      glTranslatef(1*cos(36*i*M_PI/180.0),1*sin(36*i*M_PI/180.0),0);
+      //rotate by angle 36*i
+      glRotatef(i*36, 0, 0, 1);
+      glutSolidTeapot(.2);
+      //reset to origin
+      glPopMatrix();
+    }
 }
 
 void problem2() {
-    // TODO: Your code here!
+  //20 steps
+	for(int i=20;i>0;i--){
+    //length from left to right
+	  for(int j=0;j<i;j++){
+      glutSolidCube(1);
+	    glPushMatrix();
+      //move right
+	    glTranslatef(1,0,0);
+	    }
+	  glPopMatrix();
+    //position 1 right and 0.5 up
+	  glTranslatef(1,0.5,0);
+	  }
 }
 
 void problem3() {
-    // TODO: Your code here!
+  //6 teapots
+  for(int i=6;i>0;i--){
+    //number of teapots in each row
+      for(int j=0;j<i;j++){
+        //create teapot move right 4 and loop
+        glPushMatrix();
+        glutSolidTeapot(1);
+        glTranslatef(4,0,0);
+      }
+      //move to next row by go back to origin and move right 2 and up 3
+      glPopMatrix();
+      glTranslatef(2,3,0);
+    }
 }
 
 void problem4() {
-    // TODO: Your code here!
+    //loop through full circle
+    for (float i = 0; i < 3*M_PI; i += 0.4) {
+    //first pushmatrix
+    glPushMatrix();
+    //rotate by i*45 degrees;
+    glRotatef(i*45, 0, 0, 1);
+    //i+= changes spike shape
+    for (float j = 0; j < M_PI; j += 0.5) {
+      //nestedpushmatrix
+      glPushMatrix();
+      //(x,0,0) distance from center
+      glTranslatef(1,0,0);
+      //rotate by i*45 degrees;
+      glRotatef(j*45, 0, 0, 1);
+      glutSolidCube(1);
+      glPopMatrix();
+    }
+    glPopMatrix();
+  }
+  //create triangle with vertices
+  glBegin(GL_TRIANGLES);
+  glColor3f(1, 1, 1);
+  glVertex3f(-0.25, 0, -0.25);
+  glVertex3f(0.25, 0, -0.25);
+  glVertex3f(0, 0.25, -0.25);
+  glEnd();
+  glPopMatrix();
 }
 
 void display() {
